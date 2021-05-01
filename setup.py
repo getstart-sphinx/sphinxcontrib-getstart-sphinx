@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 long_desc = open('README.rst').read()
 
-requires = ['Sphinx>=1.6', 'sphinxcontrib-reviewbuilder>=0.0.8']
+requires = ['Sphinx>=2.0', 'sphinxcontrib-reviewbuilder>=0.0.8']
 
 setup(
     name='sphinxcontrib-getstart-sphinx',

@@ -8,14 +8,17 @@ oreilly_review_table
 """
 
 from docutils import nodes
-from sphinx.writers.text import TextTranslator
+from sphinx.writers.text import Cell, TextTranslator
 
 
 def visit_entry(self, node):
     if len(node) == 0:
-        # Fill single-dot ``.`` for empty table cells
-        self.table[-1].append(u'　')
-        raise nodes.SkipNode
+        # Fill full-width space for empty table cells
+        self.entry = Cell()
+        self.new_state(0)
+        self.new_state(0)
+        self.add_text('　')
+        self.end_state()
     else:
         TextTranslator.visit_entry(self, node)
 
