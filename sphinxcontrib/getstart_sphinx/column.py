@@ -2,6 +2,7 @@
 
 from docutils import nodes
 from docutils.parsers.rst.directives.admonitions import Admonition
+from sphinx.transforms import SphinxTransform
 
 
 BLOCK_LEVEL_NODES = (
@@ -67,9 +68,22 @@ def review_depart_column(self, node):
         self.add_text('=====[/column]\n\n')
 
 
+class ColumnTitleCollector(SphinxTransform):
+    default_priority = 900  # after processing documents by Sphinx Domains
+
+    def apply(self, **kwargs):
+        std_domain = self.env.get_domain('std')
+        for node in self.document.findall(column):
+            for name in node['names']:
+                if name not in std_domain.labels:
+                    node_id = self.document.nameids[name]
+                    std_domain.labels[name] = (self.env.docname, node_id, node['title'])
+
+
 def setup(app):
     app.add_node(column,
                  html=(visit_column, depart_column),
                  latex=(visit_column, depart_column),
                  text=(review_visit_column, review_depart_column))
     app.add_directive('column', ColumnDirective)
+    app.add_transform(ColumnTitleCollector)
