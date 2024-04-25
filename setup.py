@@ -8,7 +8,7 @@ requires = ['Sphinx>=2.0', 'sphinxcontrib-reviewbuilder>=0.0.8']
 
 setup(
     name='sphinxcontrib-getstart-sphinx',
-    version='1.1.0',
+    version='1.2.0',
     url='https://github.com/getstart-sphinx/sphinxcontrib-getstart-sphinx',
     license='BSD',
     author='Takeshi KOMIYA',
