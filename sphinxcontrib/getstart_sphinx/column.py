@@ -41,6 +41,8 @@ class ColumnDirective(Admonition):
 
 
 def visit_column(self, node):
+    if node['title']:
+        node.insert(0, nodes.title(node['title'], node['title']))
     self.visit_admonition(node)
 
 
